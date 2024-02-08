@@ -10,12 +10,12 @@ press button(if/when applicable)
 pause
 etc.
 
-character controller
-movement/physics of player character
-Unity Asset Store or create your own
+//character controller
+//movement/physics of player character
+//Unity Asset Store or create your own
 
 teleportation / warping
-checkpoint / kill box system
+//checkpoint / kill box system
 multiple kill boxes
 multiple checkpoints
 
