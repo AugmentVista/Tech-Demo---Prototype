@@ -3041,7 +3041,7 @@ MonoBehaviour:
   sprintCooldown: 0.5
   sprintFOV: 80
   sprintFOVStepTime: 10
-  useSprintBar: 1
+  useSprintBar: 0
   hideBarWhenFull: 1
   sprintBarBG: {fileID: 4459864850135807007}
   sprintBar: {fileID: 4459864849557548619}
@@ -3049,7 +3049,7 @@ MonoBehaviour:
   sprintBarHeightPercent: 0.02
   enableJump: 1
   jumpKey: 32
-  jumpPower: 5
+  jumpPower: 7.5
   enableCrouch: 1
   holdToCrouch: 1
   crouchKey: 306
