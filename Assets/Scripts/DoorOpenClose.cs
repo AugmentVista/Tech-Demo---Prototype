@@ -8,40 +8,45 @@ public class DoorOpenClose : MonoBehaviour
 {
     public GameObject door;
 
-    public float rotationSpeed = 90f;
-
-    public Vector3 openRotation = new Vector3(0f, 25f, 0f);
-
-    public Vector3 closedRotation = new Vector3(0f, 140f, 0f);
+    public Vector3 closedRotation = new Vector3(0f, 310f, 0f);
+    public float openRotation;
 
     private bool isOpen = false;
+    private bool isOpening = false;
+
+    private void Start()
+    {
+        door.transform.eulerAngles = closedRotation;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isOpen || isOpening) return;
+
         if (other.CompareTag("Player"))
         {
             Debug.Log("Door is seeing player");
-            isOpen = !isOpen;
-            RotateDoor();
+            isOpening = true;
         }
     }
 
     private void RotateDoor()
     {
-        Debug.Log("Door is opening");
-        Vector3 currentRotation = door.transform.localEulerAngles;
-        Vector3 targetRotation;
-        if (!isOpen)
+        Debug.Log("Rotate Door is being called");
+        door.transform.RotateAround(door.transform.position, door.transform.up, -50 * Time.deltaTime);
+        if (door.transform.eulerAngles.y <= openRotation)
         {
-            targetRotation = openRotation;
+            isOpening = false;
+            Debug.Log("Door is opening");
+            isOpen = true;
         }
-        else
+    }
+
+    private void Update()
+    {
+        if (isOpening)
         {
-            targetRotation = closedRotation;
+            RotateDoor();
         }
-        Debug.Log("Target Rotation: " + targetRotation);
-        Quaternion targetQuaternion = Quaternion.Euler(targetRotation);
-        door.transform.localRotation = Quaternion.RotateTowards(door.transform.localRotation, targetQuaternion, rotationSpeed * Time.deltaTime);
-        Debug.Log("Door Rotation: " + door.transform.localRotation.eulerAngles);
     }
 }

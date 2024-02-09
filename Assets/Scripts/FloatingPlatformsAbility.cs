@@ -37,7 +37,6 @@ public class FloatingPlatformsAbility : MonoBehaviour
 
         GameObject rockInstance = Instantiate(RockPrefab, spawnPosition, Quaternion.identity);
 
-        // Add a script to handle the rock's behavior when the player collides with it
         rockInstance.AddComponent<RockCollisionHandler>();
         Debug.Log("Rock script added");
 
