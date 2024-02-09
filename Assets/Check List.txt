@@ -1,7 +1,7 @@
 ﻿
 add pause
-Kill box exists, adapt it to a teleporter A -- B 
-Checkpoint system Kill box ** -- A to ** -- B
+
+
 Moving platforms == Floating pirate ship oncollisonenter parent to floating pirate ship oncollisionexit unparent
 
 Stretch goals.
