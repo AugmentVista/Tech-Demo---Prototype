@@ -2,7 +2,6 @@
 add pause
 
 
-Moving platforms == Floating pirate ship oncollisonenter parent to floating pirate ship oncollisionexit unparent
 
 Stretch goals.
 FIRE FIRE FIRE ROCK ROCK ROCK
