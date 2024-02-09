@@ -5,11 +5,14 @@ public class FloatingPlatformsAbility : MonoBehaviour
     public GameObject RockPrefab;
     private Transform playerTransform;
     public float RockSpawnRange;
-    public int RockCount;
+    public int RockCount = 10;
+    private RockCount rockCountScript;
 
     private void Awake()
     {
+        rockCountScript = FindObjectOfType<RockCount>();
         playerTransform = transform;
+        UpdateRockUI();
     }
 
     private void Update()
@@ -18,9 +21,17 @@ public class FloatingPlatformsAbility : MonoBehaviour
         {
             UseRockAbility();
             RockCount--;
+            UpdateRockUI();
         }
     }
-
+    private void UpdateRockUI()
+    {
+        Debug.Log(RockCount);
+        if (rockCountScript != null)
+        {
+            rockCountScript.UpdateRockCount(RockCount); 
+        }
+    }
     private void UseRockAbility()
     {
         Vector3 spawnDirection = playerTransform.forward;

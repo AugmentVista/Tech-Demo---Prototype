@@ -6,81 +6,85 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour
 {
     private bool isPaused = false;
-    private Canvas canvas;
+    private GameObject pauseButton;
+    private GameObject resumeButton;
+    private bool MenuIsOpen = false;
+    float menuOpenDuration = 2.0f;
+    float timeElapsed = 0.0f;
 
     void Start()
     {
-        canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas != null)
         {
-            canvas.gameObject.SetActive(false);
+            pauseButton = canvas.transform.Find("Pause Button").gameObject;
+            resumeButton = canvas.transform.Find("Resume Button").gameObject;
+            pauseButton.SetActive(false);
+            resumeButton.SetActive(false);
         }
     }
-
-    public void PauseGame()
+    public void OnPauseButtonClick()
     {
-        if (isPaused)
-        {
-            isPaused = false;
-        }
-        else
+        if (!isPaused)
         {
             isPaused = true;
         }
         if (isPaused)
         {
-            if (canvas != null)
-            {
-                canvas.gameObject.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-            }
-        }
-        else
-        {
-            if (canvas != null)
-            {
-                canvas.gameObject.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-            }
+            Time.timeScale = 0.0f;
         }
     }
-    public void OnButtonClick()
+    public void OnResumeButtonClick()
     {
         if (isPaused)
         {
             isPaused = false;
-        }
-        else
-        {
-            isPaused = true;
         }
         if (!isPaused)
         {
-            if (canvas != null)
-            {
-                //canvas.gameObject.SetActive(true);
-                //Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 1.0f;
-            }
         }
-        else
+        MenuIsOpen = false;
+    }
+    void MenuTimeSlow()
+    {
+        if (MenuIsOpen && !isPaused)
         {
-            if (canvas != null)
-            {
-                //canvas.gameObject.SetActive(false);
-                //Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 0.0f;
-            }
+            timeElapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(timeElapsed / menuOpenDuration);
+            Time.timeScale = Mathf.Lerp(1.0f, 0.1f, t);
         }
-
+        if (!MenuIsOpen)
+        { Time.timeScale = 1.0f; }
     }
     void Update()
     {
+        MenuTimeSlow();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (MenuIsOpen)
+            {
+                MenuIsOpen = false;
+            }
+            else
+            { 
+                MenuIsOpen = true;
+            }
+            Debug.Log("Menu is" + MenuIsOpen);
+        }
+        if (MenuIsOpen)
+        {
+            Debug.Log("Menu is open");
+            pauseButton.SetActive(true);
+            resumeButton.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+
+        }
+        else if (!MenuIsOpen)
+        {
+            pauseButton.SetActive(false);
+            resumeButton.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }
-
-
