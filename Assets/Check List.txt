@@ -1,42 +1,9 @@
 ﻿
-Functional Specifications:
+add pause
+Kill box exists, adapt it to a teleporter A -- B 
+Checkpoint system Kill box ** -- A to ** -- B
+Moving platforms == Floating pirate ship oncollisonenter parent to floating pirate ship oncollisionexit unparent
 
-List of Mechanics:
-user input
-move
-jump (if/when applicable)
-shoot(if/ when applicable)
-press button(if/when applicable)
-pause
-etc.
-
-//character controller
-//movement/physics of player character
-//Unity Asset Store or create your own
-
-teleportation / warping
-//checkpoint / kill box system
-multiple kill boxes
-multiple checkpoints
-
-in-game object instantiation
-primitives or prefabs
-popular example is Portal cubes respawning
-does not have to be during game play, can be during "start".
-
-in-game modification of Unity components
-in-game modification (Unity inspector) components via code
-interesting example is toggling physics or gravity on/off
-
-collectibles
-
-automatic door
-
-moving platforms
-
-player moves with platform (rather than platform moving out from under player)
-
-Technical Specifications:
-
-All mechanics must be programmed. You are not permitted to use animation tools (such as Unity Cinemachine, Timeline, etc.).
-All mechanics should be programmed and designed in Unity to be re-usable (using prefabs, etc.).
+Stretch goals.
+FIRE FIRE FIRE ROCK ROCK ROCK
+Add oncolllison enter sound between player & rock to water 
