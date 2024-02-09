@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class CollectibleItem : MonoBehaviour
 {
     // Reference to FloatingPlatformsAbility script

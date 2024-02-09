@@ -1,8 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine;
-
-using UnityEngine;
 
 public class RockCollisionHandler : MonoBehaviour
 {
@@ -15,7 +12,7 @@ public class RockCollisionHandler : MonoBehaviour
         // Update the elapsed time if collision has occurred
         if (hasCollided)
         {
-            Debug.Log("Has collided");
+            //Debug.Log("Has collided");
             elapsedTime += Time.deltaTime;
 
             // Check if the elapsed time has reached the interaction delay
@@ -25,7 +22,7 @@ public class RockCollisionHandler : MonoBehaviour
                 Rigidbody rockRigidbody = GetComponent<Rigidbody>();
                 rockRigidbody.isKinematic = false;
                 rockRigidbody.useGravity = true;
-                Debug.Log("Rock is using gravity");
+                //Debug.Log("Rock is using gravity");
                 Destroy(gameObject, 10f);
             }
         }

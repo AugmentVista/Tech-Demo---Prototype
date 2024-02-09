@@ -1,7 +1,4 @@
 using UnityEngine;
-
-using UnityEngine;
-
 public class FloatingPlatformsAbility : MonoBehaviour
 {
 
@@ -38,10 +35,10 @@ public class FloatingPlatformsAbility : MonoBehaviour
         GameObject rockInstance = Instantiate(RockPrefab, spawnPosition, Quaternion.identity);
 
         rockInstance.AddComponent<RockCollisionHandler>();
-        Debug.Log("Rock script added");
+        //Debug.Log("Rock script added");
 
         Rigidbody rockRigidbody = rockInstance.GetComponent<Rigidbody>();
         rockRigidbody.isKinematic = true;
-        Debug.Log("Kinematic has been set");
+        //Debug.Log("Kinematic has been set");
     }
 }
