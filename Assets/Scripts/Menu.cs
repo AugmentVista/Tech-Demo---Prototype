@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    public FirstPersonController firstPersonController;
     private bool isPaused = false;
     private GameObject pauseButton;
     private GameObject resumeButton;
     private bool MenuIsOpen = false;
-    float menuOpenDuration = 2.0f;
+    float menuOpenDuration = 1.0f;
     float timeElapsed = 0.0f;
 
     void Start()
     {
+        firstPersonController = FindObjectOfType<FirstPersonController>();
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas != null)
         {
@@ -52,10 +54,13 @@ public class Menu : MonoBehaviour
         {
             timeElapsed += Time.deltaTime;
             float t = Mathf.Clamp01(timeElapsed / menuOpenDuration);
-            Time.timeScale = Mathf.Lerp(1.0f, 0.1f, t);
+            Time.timeScale = Mathf.Lerp(1.0f, 0.001f, t);
         }
         if (!MenuIsOpen)
-        { Time.timeScale = 1.0f; }
+        { 
+            Time.timeScale = 1.0f;
+            timeElapsed = 0.0f;
+        }
     }
     void Update()
     {
@@ -74,6 +79,7 @@ public class Menu : MonoBehaviour
         }
         if (MenuIsOpen)
         {
+            firstPersonController.cameraCanMove = false;
             Debug.Log("Menu is open");
             pauseButton.SetActive(true);
             resumeButton.SetActive(true);
@@ -82,6 +88,7 @@ public class Menu : MonoBehaviour
         }
         else if (!MenuIsOpen)
         {
+            firstPersonController.cameraCanMove = true;
             pauseButton.SetActive(false);
             resumeButton.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;

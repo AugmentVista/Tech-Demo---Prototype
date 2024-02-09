@@ -186,7 +186,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.43467084, g: 0.8679245, b: 0.289854, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2273,7 +2273,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.43467084, g: 0.8679245, b: 0.289854, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2971,7 +2971,7 @@ Transform:
   m_Children:
   - {fileID: 311944316}
   - {fileID: 1392306335}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1165571389}
   m_LocalEulerAnglesHint: {x: -45, y: 45, z: 45}
 --- !u!1 &776550120
 GameObject:
@@ -3228,7 +3228,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1165571389}
   m_LocalEulerAnglesHint: {x: 0, y: -148.196, z: 0}
 --- !u!1 &865149884
 GameObject:
@@ -3873,7 +3873,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: '# of rocks'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3900,8 +3900,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4107,6 +4107,12 @@ Transform:
   - {fileID: 1939322925}
   - {fileID: 1735182452}
   - {fileID: 1018475221}
+  - {fileID: 1963894121597968073}
+  - {fileID: 1406836928}
+  - {fileID: 732442876}
+  - {fileID: 820126914100566078}
+  - {fileID: 811481699}
+  - {fileID: 1552123148}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191881181
@@ -5155,7 +5161,7 @@ Transform:
   m_Children:
   - {fileID: 202562163}
   - {fileID: 966749640}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1165571389}
   m_LocalEulerAnglesHint: {x: -45, y: 45, z: 45}
 --- !u!1 &1527108734
 GameObject:
@@ -5328,7 +5334,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1165571389}
   m_LocalEulerAnglesHint: {x: 0, y: -148.196, z: 0}
 --- !u!1 &1594964585
 GameObject:
@@ -5362,6 +5368,7 @@ Transform:
   - {fileID: 1842402374}
   - {fileID: 247078055}
   - {fileID: 251732528}
+  - {fileID: 1682876544}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1662766026
@@ -5393,6 +5400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ca190158b7f2c4a85d3ed8585fcd23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstPersonController: {fileID: 0}
 --- !u!4 &1662766028
 Transform:
   m_ObjectHideFlags: 0
@@ -5506,13 +5514,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682876540}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9396926, z: -0, w: -0.3420202}
-  m_LocalPosition: {x: -0.3381047, y: 2.1547296, z: -2.5819585}
-  m_LocalScale: {x: 0.40868998, y: 0.2, z: 0.37000996}
+  m_LocalRotation: {x: -0, y: 0.68855625, z: -0, w: 0.72518295}
+  m_LocalPosition: {x: 66.000206, y: -8.673649, z: -61.86948}
+  m_LocalScale: {x: 4.6263704, y: 2.264, z: 4.1885123}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 653203436662365968}
-  m_LocalEulerAnglesHint: {x: 0, y: 50, z: 0}
+  m_Father: {fileID: 1594964586}
+  m_LocalEulerAnglesHint: {x: 0, y: 177.032, z: 0}
 --- !u!1 &1697276273
 GameObject:
   m_ObjectHideFlags: 0
@@ -6985,6 +6993,7 @@ GameObject:
   - component: {fileID: 2030895126}
   - component: {fileID: 2030895128}
   - component: {fileID: 2030895127}
+  - component: {fileID: 2030895129}
   m_Layer: 5
   m_Name: RockFrame
   m_TagString: Untagged
@@ -7050,6 +7059,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030895125}
   m_CullTransparentMesh: 1
+--- !u!114 &2030895129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030895125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad219ac5fe699d45b26d1f3d67b9532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2068775011
 GameObject:
   m_ObjectHideFlags: 0
@@ -7885,7 +7906,6 @@ Transform:
   - {fileID: 7022918670622893789}
   - {fileID: 1163161236419468478}
   - {fileID: 6924482981783749855}
-  - {fileID: 1682876544}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!4 &658919212562446387
@@ -8070,7 +8090,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1165571389}
   m_LocalEulerAnglesHint: {x: 0, y: -148.196, z: 0}
 --- !u!1 &868035824031898021
 GameObject:
@@ -8804,7 +8824,7 @@ Transform:
   m_Children:
   - {fileID: 5437981915074792847}
   - {fileID: 4802237073707080804}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1165571389}
   m_LocalEulerAnglesHint: {x: -45, y: 45, z: 45}
 --- !u!64 &1963894121597968074
 MeshCollider:
@@ -13894,12 +13914,6 @@ SceneRoots:
   - {fileID: 384686298}
   - {fileID: 1299218387}
   - {fileID: 1165571389}
-  - {fileID: 1963894121597968073}
-  - {fileID: 1406836928}
-  - {fileID: 732442876}
-  - {fileID: 820126914100566078}
-  - {fileID: 811481699}
-  - {fileID: 1552123148}
   - {fileID: 1594964586}
   - {fileID: 488192306}
   - {fileID: 152593197131226293}
