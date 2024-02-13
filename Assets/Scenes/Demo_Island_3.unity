@@ -548,7 +548,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &128750868
 MeshCollider:
@@ -669,7 +671,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &202562165
 MeshCollider:
@@ -795,7 +799,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 1817782057}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 1099621078}
   rotationSpeed: 30
 --- !u!4 &203684412
 Transform:
@@ -1262,7 +1268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &311944318
 MeshCollider:
@@ -1418,7 +1426,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &403916113
 MeshCollider:
@@ -2135,7 +2145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &618472000
 MeshCollider:
@@ -2388,7 +2400,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &635215868
 MeshCollider:
@@ -2690,7 +2704,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &732422272
 MeshCollider:
@@ -2816,7 +2832,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 1817782057}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 1099621078}
   rotationSpeed: 30
 --- !u!4 &732442876
 Transform:
@@ -3319,7 +3337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &966749642
 MeshCollider:
@@ -3633,7 +3653,7 @@ GameObject:
   - component: {fileID: 1099621079}
   - component: {fileID: 1099621078}
   m_Layer: 5
-  m_Name: RockCounter
+  m_Name: Rock Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3911,10 +3931,10 @@ Transform:
   - {fileID: 1791328682}
   - {fileID: 1939322925}
   - {fileID: 1735182452}
-  - {fileID: 1018475221}
   - {fileID: 1963894121597968073}
   - {fileID: 1406836928}
   - {fileID: 732442876}
+  - {fileID: 1018475221}
   - {fileID: 820126914100566078}
   - {fileID: 811481699}
   - {fileID: 1552123148}
@@ -4112,7 +4132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &1244498598
 MeshCollider:
@@ -4823,7 +4845,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &1392306337
 MeshCollider:
@@ -4949,7 +4973,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 1817782057}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 1099621078}
   rotationSpeed: 30
 --- !u!4 &1406836928
 Transform:
@@ -5417,7 +5443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 1817782057}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 1099621078}
   rotationSpeed: 30
 --- !u!4 &1735182452
 Transform:
@@ -5719,7 +5747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 1817782057}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 1099621078}
   rotationSpeed: 30
 --- !u!4 &1791328682
 Transform:
@@ -5965,6 +5995,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 488192306}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!1 &1817782056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1817782058}
+  - component: {fileID: 1817782057}
+  m_Layer: 0
+  m_Name: UI Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1817782057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817782056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3edad6bbdf68d34fb689e8027e4bbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatingPlatformsAbility: {fileID: 4459864851517547146}
+--- !u!4 &1817782058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817782056}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 458.99146, y: 292.50995, z: -91.7934}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1819664064
 GameObject:
   m_ObjectHideFlags: 0
@@ -6242,7 +6317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &1845946422
 MeshCollider:
@@ -6670,7 +6747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!64 &1924778348
 MeshCollider:
@@ -6796,7 +6875,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 1817782057}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 1099621078}
   rotationSpeed: 30
 --- !u!4 &1939322925
 Transform:
@@ -8786,7 +8867,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 1817782057}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 1099621078}
   rotationSpeed: 30
 --- !u!1 &1976992652435457540
 GameObject:
@@ -9555,7 +9638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!33 &3066115744285314111
 MeshFilter:
@@ -10090,7 +10175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!4 &4138072850125873417
 Transform:
@@ -10585,10 +10672,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cce6856fe65e14dae7b2d9b26c7637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 1817782057}
   RockPrefab: {fileID: 1277486251020420014, guid: 4358b9f05e36a134aa510ade108d90fb, type: 3}
+  RockCountText: {fileID: 1099621078}
   RockSpawnRange: 2
   RockCount: 10
-  RockCountText: {fileID: 1099621078}
 --- !u!114 &4459864851517547147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12843,7 +12931,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!23 &8031457462619708141
 MeshRenderer:
@@ -13329,7 +13419,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!4 &8629167148518807375
 Transform:
@@ -13467,7 +13559,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!4 &8842848448128090275
 Transform:
@@ -13612,7 +13706,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!4 &8991221194362870801
 Transform:
@@ -13804,7 +13900,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183a8071c51fb6d4881ee6ba269babbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UImanager: {fileID: 0}
   floatingPlatformsAbility: {fileID: 4459864851517547146}
+  RockCountText: {fileID: 0}
   rotationSpeed: 30
 --- !u!4 &9187704485730776685
 Transform:
@@ -13850,3 +13948,4 @@ SceneRoots:
   - {fileID: 1356886998}
   - {fileID: 526633129}
   - {fileID: 653203436662365968}
+  - {fileID: 1817782058}

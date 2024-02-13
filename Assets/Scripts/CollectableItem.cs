@@ -1,12 +1,19 @@
+using TMPro;
 using UnityEngine;
 public class CollectibleItem : MonoBehaviour
 {
-    // Reference to FloatingPlatformsAbility script
-    public FloatingPlatformsAbility floatingPlatformsAbility;
-    public float rotationSpeed = 30f; // Speed of rotation in degrees per second
+    [SerializeField]
+    private UIManager UImanager;
+    [SerializeField]
+    private FloatingPlatformsAbility floatingPlatformsAbility;
+
+    public TextMeshProUGUI RockCountText;
+
+    public float rotationSpeed = 30f; 
     private void OnTriggerEnter(Collider other)
     {
-        
+        Debug.Log("UImanager: " + UImanager);
+        Debug.Log("floatingPlatformsAbility: " + floatingPlatformsAbility);
         if (other.CompareTag("Player"))
         {
             CollectItem();
@@ -22,6 +29,6 @@ public class CollectibleItem : MonoBehaviour
     {
         floatingPlatformsAbility.RockCount++;
         gameObject.SetActive(false);
-        floatingPlatformsAbility.UpdateRockUI();
+        UImanager.UpdateRockCount(floatingPlatformsAbility.RockCount);
     }
 }
