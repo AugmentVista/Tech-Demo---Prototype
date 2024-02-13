@@ -22,5 +22,6 @@ public class CollectibleItem : MonoBehaviour
     {
         floatingPlatformsAbility.RockCount++;
         gameObject.SetActive(false);
+        floatingPlatformsAbility.UpdateRockUI();
     }
 }

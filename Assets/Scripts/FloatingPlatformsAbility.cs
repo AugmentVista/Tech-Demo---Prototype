@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 public class FloatingPlatformsAbility : MonoBehaviour
 {
@@ -6,11 +7,10 @@ public class FloatingPlatformsAbility : MonoBehaviour
     private Transform playerTransform;
     public float RockSpawnRange;
     public int RockCount = 10;
-    private RockCount rockCountScript;
+    public TextMeshProUGUI RockCountText;
 
     private void Awake()
     {
-        rockCountScript = FindObjectOfType<RockCount>();
         playerTransform = transform;
         UpdateRockUI();
     }
@@ -24,14 +24,19 @@ public class FloatingPlatformsAbility : MonoBehaviour
             UpdateRockUI();
         }
     }
-    private void UpdateRockUI()
+    public void UpdateRockCount(int count)
     {
-        Debug.Log(RockCount);
-        if (rockCountScript != null)
-        {
-            rockCountScript.UpdateRockCount(RockCount); 
-        }
+        RockCountText.text = "Rock-Platforms\n" + count.ToString();
+        Debug.Log(RockCountText.text);
     }
+
+    public void UpdateRockUI()
+    {
+        UpdateRockCount(RockCount);
+        Debug.Log(RockCount);
+    }
+
+
     private void UseRockAbility()
     {
         Vector3 spawnDirection = playerTransform.forward;
