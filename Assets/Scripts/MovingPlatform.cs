@@ -72,7 +72,7 @@ public class MovingPlatform : MonoBehaviour
         ShipGO();
         if (player != null && player.parent != null)
         {
-            Vector3 deltaMovement = Ship.transform.position - Ship.transform.position;
+            Vector3 deltaMovement = Vector3.zero;
             player.Translate(deltaMovement, Space.World);
             if (Input.GetKeyDown(KeyCode.Space))
             {

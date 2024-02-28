@@ -30,10 +30,10 @@ public class FloatingPlatformsAbility : MonoBehaviour
 
     private void UseRockAbility()
     {
-        Vector3 spawnDirection = playerTransform.forward;
-        Vector3 spawnPosition = playerTransform.position + spawnDirection * RockSpawnRange + Vector3.up * -1f;
+        Vector3 PlayerForwardSight = playerTransform.forward;
+        Vector3 spawnPosition = playerTransform.position + PlayerForwardSight * RockSpawnRange + Vector3.up * -1f;
         RaycastHit hit;
-        if (Physics.Raycast(playerTransform.position, spawnDirection, out hit, RockSpawnRange))
+        if (Physics.Raycast(playerTransform.position, PlayerForwardSight, out hit, RockSpawnRange))
         {
             spawnPosition = hit.point + Vector3.up * 0.1f;
         }
