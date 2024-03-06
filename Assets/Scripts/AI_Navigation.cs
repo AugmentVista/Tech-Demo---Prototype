@@ -17,12 +17,13 @@ public class AI_Navigation : MonoBehaviour
 
     public Transform player;
     private NavMeshAgent agent;
-    public AudioClip explosionSound;
+    public AudioClip AttackSound;
 
     public LayerMask detectionLayer;
     public Vector3 lastPlayerPos;
     public Vector3 previousSelfPos;
 
+    public static bool tarpos1 = false;
     public float weakForceThreshold = 10f;
     public float strongForceThreshold = 20f;
     public float sensorRange = 10f;
@@ -71,9 +72,18 @@ public class AI_Navigation : MonoBehaviour
     }
     void PatrolState()
     {
+        
+        Debug.Log("Entering Patrol State");
         // Change Enemy Material Color to Patrol Color
-        agent.SetDestination(targetPos1);
-        if (Vector3.Distance(Self.position, targetPos1) < 0.1f)
+        if (!CanSeePlayer() && !tarpos1)
+        { 
+            agent.SetDestination(targetPos1);
+            if (Vector3.Distance(Self.position, targetPos1) < 1.5f)
+            {
+                tarpos1 = true;
+            }
+        }
+        if (Vector3.Distance(Self.position, targetPos1) < 1.5f)
         {
             agent.SetDestination(targetPos2);
             if (CanSeePlayer())
@@ -81,7 +91,7 @@ public class AI_Navigation : MonoBehaviour
                 currentState = State.Chase;
             }
         }
-        else if (Vector3.Distance(Self.position, targetPos2) < 0.1f)
+        else if (Vector3.Distance(Self.position, targetPos2) < 1.5f)
         {
             agent.SetDestination(targetPos3);
             if (CanSeePlayer())
@@ -89,7 +99,7 @@ public class AI_Navigation : MonoBehaviour
                 currentState = State.Chase;
             }
         }
-        else if (Vector3.Distance(Self.position, targetPos3) < 0.1f)
+        else if (Vector3.Distance(Self.position, targetPos3) < 1.5f)
         {
             agent.SetDestination(targetPos4);
             if (CanSeePlayer())
@@ -97,7 +107,7 @@ public class AI_Navigation : MonoBehaviour
                 currentState = State.Chase;
             }
         }
-        else if (Vector3.Distance(Self.position, targetPos4) < 0.1f)
+        else if (Vector3.Distance(Self.position, targetPos4) < 1.5f)
         {
             agent.SetDestination(targetPos1);
             if (CanSeePlayer())
@@ -133,6 +143,7 @@ public class AI_Navigation : MonoBehaviour
     }
     void ChaseState()
     {
+        Debug.Log("Entering Chase State");
         // Change Enemy Material Color to Chase Color
         if (CanSeePlayer())
         {
@@ -148,8 +159,9 @@ public class AI_Navigation : MonoBehaviour
     }
     void SearchState()
     {
+        Debug.Log("Entering Search State");
         // Change Enemy Material Color to Search Color
-        if (Vector3.Distance(Self.position, lastPlayerPos) < 0.1f)
+        if (Vector3.Distance(Self.position, lastPlayerPos) < 0.5f)
         {
             agent.SetDestination(previousSelfPos);
             if (CanSeePlayer())
@@ -157,10 +169,10 @@ public class AI_Navigation : MonoBehaviour
                 currentState = State.Chase;
             }
         }
-       else if (Vector3.Distance(Self.position, previousSelfPos) < 0.1f)
+       else if (Vector3.Distance(Self.position, previousSelfPos) < 0.5f)
         {
             agent.SetDestination(lastPlayerPos);
-            if (!CanSeePlayer() || (Vector3.Distance(Self.position, lastPlayerPos) < 0.1f))
+            if (!CanSeePlayer() || (Vector3.Distance(Self.position, lastPlayerPos) < 0.5f))
             {
                 currentState = State.Patrol;
             }
@@ -172,17 +184,17 @@ public class AI_Navigation : MonoBehaviour
     }
     void AttackState()
     {
+        Debug.Log("Entering Attack State");
         // Change Enemy Material Color to Attack Color
-        explosionSound = Resources.Load<AudioClip>("Explosion");
         int numberOfAttacks = 0;
 
         if (inRangeOfPlayer())
         {
             elapsedTime += Time.deltaTime;
 
-            if (elapsedTime >= interactionDelay && explosionSound != null)            
+            if (elapsedTime >= interactionDelay && AttackSound != null)            
             {
-                AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+                AudioSource.PlayClipAtPoint(AttackSound, transform.position);
                 elapsedTime = 0;
                 numberOfAttacks++;
             }
@@ -194,6 +206,7 @@ public class AI_Navigation : MonoBehaviour
     }
     void RetreatState()
     {
+        Debug.Log("Entering Retreat State");
         // Change Enemy Material Color to Retreat Color
         if (CanSeePlayer())
         {

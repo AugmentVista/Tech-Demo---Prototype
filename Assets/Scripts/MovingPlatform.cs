@@ -54,8 +54,6 @@ public class MovingPlatform : MonoBehaviour
         }
         else if (EndPointReached)
         {
-            Debug.Log("First Debug" + EndPointReached);
-            Debug.Log("Else if statement reached");
             targetPoint = startPoint;
             Ship.transform.position = Vector3.Lerp(Ship.transform.position, targetPoint, movementSpeed * Time.deltaTime);
             if (Vector3.Distance(Ship.transform.position, targetPoint) <= 0.1f)
@@ -63,7 +61,7 @@ public class MovingPlatform : MonoBehaviour
                 targetPoint = endPoint;
                 EndPointReached = false;
             }
-            Debug.Log(EndPointReached);
+            //Debug.Log(EndPointReached);
         }
     }
 
