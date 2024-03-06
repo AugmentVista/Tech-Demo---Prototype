@@ -4,25 +4,21 @@ using UnityEngine;
 public class RockCollisionHandler : MonoBehaviour
 {
     private bool hasCollided = false;
-    private float interactionDelay = 3f; // Delay before interaction is allowed
-    private float elapsedTime = 0f; // Time elapsed since the script started
+    private float interactionDelay = 3f; 
+    private float elapsedTime = 0f; 
 
     private void Update()
     {
-        // Update the elapsed time if collision has occurred
         if (hasCollided)
         {
-            //Debug.Log("Has collided");
             elapsedTime += Time.deltaTime;
 
-            // Check if the elapsed time has reached the interaction delay
             if (elapsedTime >= interactionDelay)
             {
                 // Enable gravity after the delay
                 Rigidbody rockRigidbody = GetComponent<Rigidbody>();
                 rockRigidbody.isKinematic = false;
                 rockRigidbody.useGravity = true;
-                //Debug.Log("Rock is using gravity");
                 Destroy(gameObject, 10f);
             }
         }
