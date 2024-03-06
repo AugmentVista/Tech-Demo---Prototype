@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
-public class CollectibleItem : MonoBehaviour
+public class RockCollectible : MonoBehaviour
 {
     [SerializeField]
     private UIManager UImanager;
     [SerializeField]
     private FloatingPlatformsAbility floatingPlatformsAbility;
+    [SerializeField]
+    private int rocksToAdd;
 
     public TextMeshProUGUI RockCountText;
 
@@ -27,7 +29,7 @@ public class CollectibleItem : MonoBehaviour
     }
     private void CollectItem()
     {
-        floatingPlatformsAbility.RockCount++;
+        floatingPlatformsAbility.RockCount += rocksToAdd;
         gameObject.SetActive(false);
         UImanager.UpdateRockCount(floatingPlatformsAbility.RockCount);
     }
