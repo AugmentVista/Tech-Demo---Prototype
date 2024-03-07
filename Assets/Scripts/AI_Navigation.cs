@@ -12,10 +12,11 @@ public class AI_Navigation : MonoBehaviour
     public GameObject targetPointTwo;
     public GameObject targetpointThree;
 
-    public Vector3 targetPoint0;
-    public Vector3 targetPoint1;
-    public Vector3 targetPoint2;
-    public Vector3 targetPoint3;
+    private Vector3 targetPoint;
+    private Vector3 targetPoint0;
+    private Vector3 targetPoint1;
+    private Vector3 targetPoint2;
+    private Vector3 targetPoint3;
 
     public Transform player;
     private NavMeshAgent agent;
@@ -29,7 +30,7 @@ public class AI_Navigation : MonoBehaviour
     public float weakForceThreshold = 10f;
     public float strongForceThreshold = 20f;
     public float sensorRange = 15f;
-    public float meleeRange = 3f;
+    public float meleeRange = 5f;
     private float interactionDelay = 3f; 
     private float elapsedTime = 0f; 
 
@@ -51,6 +52,8 @@ public class AI_Navigation : MonoBehaviour
         targetPoint1 = targetPointOne.transform.position;
         targetPoint2 = targetPointTwo.transform.position;
         targetPoint3 = targetpointThree.transform.position;
+
+        targetPoint = targetPoint0;
     }
     private void Update()
     {
@@ -82,64 +85,36 @@ public class AI_Navigation : MonoBehaviour
     {
         // Change Enemy Material Color to Patrol Color
         Debug.Log("Entering Patrol State");
-        //Debug.Log("targetswitch is " + targetswitch);
-        if (targetswitch == 0)
-        {
-            agent.SetDestination(targetPoint0);
-            //Debug.Log("targetswitch is " + targetswitch);
-           // Debug.Log("Ai pos is " + Self.position);
-            if (Vector3.Distance(Self.position, targetPoint0) <= 1.5f)
-            {
-                targetswitch++;
-                Debug.Log("targetswitch is " + targetswitch);
-            }
-        }
+        Debug.Log("targetswitch is " + targetswitch);
+
+        agent.SetDestination(targetPoint);
+
         if (CanSeePlayer())
-        {
             currentState = State.Chase;
-            targetswitch = 0;
-        }
-        if (Vector3.Distance(Self.position, targetPoint0) <= 1.5f || targetswitch == 1)
+
+        if (Vector3.Distance(Self.position, targetPoint) <= 1.5f)
         {
-            agent.SetDestination(targetPoint1);
-            if (CanSeePlayer())
+            switch (targetswitch)
             {
-                currentState = State.Chase;
-                targetswitch = 0;
-            }
-            targetswitch++;
-        }
-        else if (Vector3.Distance(Self.position, targetPoint1) <= 1.5f || targetswitch == 2)
-        {
-            agent.SetDestination(targetPoint2);
-            if (CanSeePlayer())
-            {
-                currentState = State.Chase;
-                targetswitch = 0;
-            }
-            targetswitch++;
-        }
-        else if (Vector3.Distance(Self.position, targetPoint2) <= 1.5f || targetswitch == 3)
-        {
-            agent.SetDestination(targetPoint3);
-            if (CanSeePlayer())
-            {
-                currentState = State.Chase;
-                targetswitch = 0;
-            }
-            targetswitch++;
-        }
-        else if (Vector3.Distance(Self.position, targetPoint3) <= 1.5f || targetswitch == 4)
-        {
-            agent.SetDestination(targetPoint0);
-            if (CanSeePlayer())
-            {
-                currentState = State.Chase;
-                targetswitch = 0;
+                case 0:
+                    targetPoint = targetPoint1;
+                    targetswitch++;
+                    break;
+                case 1:
+                    targetPoint = targetPoint2;
+                    targetswitch++;
+                    break;
+                case 2:
+                    targetPoint = targetPoint3;
+                    targetswitch++;
+                    break;
+                case 3:
+                    targetPoint = targetPoint0;
+                    targetswitch = 0;
+                    break;
             }
         }
-        currentState = State.Patrol;
-    }
+    } // improved.
     void ChaseState()
     {
         Debug.Log("Entering Chase State");
@@ -148,12 +123,13 @@ public class AI_Navigation : MonoBehaviour
         {
             agent.SetDestination(player.position);
             if (inRangeOfPlayer())
-            { currentState = State.Attack; }
+            {
+                currentState = State.Attack; 
+            }
             previousSelfPos = Self.position;
         }
         else
         {
-            agent.SetDestination(lastPlayerPos);
             currentState = State.Search;
         }
     }
@@ -162,9 +138,9 @@ public class AI_Navigation : MonoBehaviour
         // Change Enemy Material Color to Search Color
         Debug.Log("Entering Search State");
         agent.SetDestination(previousSelfPos);
-        if (Vector3.Distance(Self.position, previousSelfPos) < 1.5f)
+        
+        if (Vector3.Distance(Self.position, previousSelfPos) < 1.5f) // FIX
         {
-            agent.SetDestination(targetPoint0);
             if (CanSeePlayer())
             {
                 currentState = State.Chase;
@@ -181,6 +157,10 @@ public class AI_Navigation : MonoBehaviour
             {
                 currentState = State.Chase;
             }
+        }
+        if (CanSeePlayer())
+        {
+            currentState = State.Chase;
         }
     }
     void AttackState()
@@ -207,7 +187,7 @@ public class AI_Navigation : MonoBehaviour
     }
     void RetreatState()
     {
-        currentState = State.Patrol;
+        //currentState = State.Patrol;
         Debug.Log("Entering Retreat State");
         //// Change Enemy Material Color to Retreat Color
         if (CanSeePlayer())
@@ -265,7 +245,7 @@ public class AI_Navigation : MonoBehaviour
     }
     private bool inRangeOfPlayer()
     {
-        if (Vector3.Distance(transform.position, player.position) <= sensorRange)
+        if (Vector3.Distance(transform.position, player.position) <= meleeRange)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, (player.position - transform.position).normalized, out hit, meleeRange, detectionLayer))
