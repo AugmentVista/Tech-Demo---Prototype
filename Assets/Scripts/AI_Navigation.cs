@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,14 +7,15 @@ public class AI_Navigation : MonoBehaviour
 {
     [SerializeField]
     private Transform Self;
-    [SerializeField]
-    private Vector3 targetPos1;
-    [SerializeField]
-    private Vector3 targetPos2;
-    [SerializeField]
-    private Vector3 targetPos3;
-    [SerializeField]
-    private Vector3 targetPos4;
+    public GameObject targetPointZero;
+    public GameObject targetPointOne;
+    public GameObject targetPointTwo;
+    public GameObject targetpointThree;
+
+    public Vector3 targetPoint0;
+    public Vector3 targetPoint1;
+    public Vector3 targetPoint2;
+    public Vector3 targetPoint3;
 
     public Transform player;
     private NavMeshAgent agent;
@@ -23,7 +25,7 @@ public class AI_Navigation : MonoBehaviour
     public Vector3 lastPlayerPos;
     public Vector3 previousSelfPos;
 
-    public static bool tarpos1 = false;
+    public static int targetswitch = 0;
     public float weakForceThreshold = 10f;
     public float strongForceThreshold = 20f;
     public float sensorRange = 10f;
@@ -42,8 +44,13 @@ public class AI_Navigation : MonoBehaviour
     }
     private void Start()
     {
+        targetswitch = 0;
         agent = GetComponent<NavMeshAgent>();
         previousSelfPos = Self.position;
+        targetPoint0 = targetPointZero.transform.position;
+        targetPoint1 = targetPointOne.transform.position;
+        targetPoint2 = targetPointTwo.transform.position;
+        targetPoint3 = targetpointThree.transform.position;
     }
     private void Update()
     {
@@ -72,49 +79,69 @@ public class AI_Navigation : MonoBehaviour
     }
     void PatrolState()
     {
-        
-        Debug.Log("Entering Patrol State");
         // Change Enemy Material Color to Patrol Color
-        if (!CanSeePlayer() && !tarpos1)
-        { 
-            agent.SetDestination(targetPos1);
-            if (Vector3.Distance(Self.position, targetPos1) < 1.5f)
+        Debug.Log("Entering Patrol State");
+        Debug.Log("targetswitch is " + targetswitch);
+        if (targetswitch == 0)
+        {
+            agent.SetDestination(targetPoint0);
+            Debug.Log("targetswitch is " + targetswitch);
+            Debug.Log("Ai pos is " + Self.position);
+            if (Vector3.Distance(Self.position, targetPoint0) <= 1.5f)
             {
-                tarpos1 = true;
+                targetswitch++;
+                Debug.Log("targetswitch is " + targetswitch);
             }
         }
-        if (Vector3.Distance(Self.position, targetPos1) < 1.5f)
+        if (CanSeePlayer())
         {
-            agent.SetDestination(targetPos2);
+            currentState = State.Chase;
+            targetswitch = 0;
+        }
+        if (Vector3.Distance(Self.position, targetPoint0) <= 1.5f || targetswitch == 1)
+        {
+            agent.SetDestination(targetPoint1);
             if (CanSeePlayer())
             {
                 currentState = State.Chase;
+                targetswitch = 0;
             }
+            targetswitch++;
         }
-        else if (Vector3.Distance(Self.position, targetPos2) < 1.5f)
+        else if (Vector3.Distance(Self.position, targetPoint1) <= 1.5f || targetswitch == 2)
         {
-            agent.SetDestination(targetPos3);
+            agent.SetDestination(targetPoint2);
             if (CanSeePlayer())
             {
                 currentState = State.Chase;
+                targetswitch = 0;
             }
+            targetswitch++;
         }
-        else if (Vector3.Distance(Self.position, targetPos3) < 1.5f)
+        else if (Vector3.Distance(Self.position, targetPoint2) <= 1.5f || targetswitch == 3)
         {
-            agent.SetDestination(targetPos4);
+            agent.SetDestination(targetPoint3);
             if (CanSeePlayer())
             {
                 currentState = State.Chase;
+                targetswitch = 0;
             }
+            targetswitch++;
         }
-        else if (Vector3.Distance(Self.position, targetPos4) < 1.5f)
+        else if (Vector3.Distance(Self.position, targetPoint3) <= 1.5f || targetswitch == 4)
         {
-            agent.SetDestination(targetPos1);
+            agent.SetDestination(targetPoint0);
             if (CanSeePlayer())
             {
                 currentState = State.Chase;
+                targetswitch = 0;
             }
         }
+        //else
+        //{
+        //    targetswitch = 0;
+        //}
+        currentState = State.Patrol;
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -206,45 +233,46 @@ public class AI_Navigation : MonoBehaviour
     }
     void RetreatState()
     {
+        currentState = State.Patrol;
         Debug.Log("Entering Retreat State");
-        // Change Enemy Material Color to Retreat Color
-        if (CanSeePlayer())
-        {
-            float distanceToTarget1 = Vector3.Distance(player.position, targetPos1);
-            float distanceToTarget2 = Vector3.Distance(player.position, targetPos2);
-            float distanceToTarget3 = Vector3.Distance(player.position, targetPos3);
-            float distanceToTarget4 = Vector3.Distance(player.position, targetPos4);
+        //// Change Enemy Material Color to Retreat Color
+        //if (CanSeePlayer())
+        //{
+        //    float distanceToTarget1 = Vector3.Distance(player.position, targetPoint0);
+        //    float distanceToTarget2 = Vector3.Distance(player.position, targetPoint1);
+        //    float distanceToTarget3 = Vector3.Distance(player.position, targetPoint2);
+        //    float distanceToTarget4 = Vector3.Distance(player.position, targetPoint3);
 
-            float maxDistance = Mathf.Max(distanceToTarget1, distanceToTarget2, distanceToTarget3, distanceToTarget4);
+        //    float maxDistance = Mathf.Max(distanceToTarget1, distanceToTarget2, distanceToTarget3, distanceToTarget4);
 
-            Vector3 Safety;
+        //    Vector3 Safety;
 
-            if (maxDistance == distanceToTarget1)
-            {
-                Safety = targetPos1;
-            }
-            else if (maxDistance == distanceToTarget2)
-            {
-                Safety = targetPos2;
-            }
-            else if (maxDistance == distanceToTarget3)
-            {
-                Safety = targetPos3;
-            }
-            else if (maxDistance == distanceToTarget4)
-            {
-                Safety = targetPos4;
-            }
-            else
-            {
-                Safety = previousSelfPos;
-            }
-            agent.SetDestination(Safety);
-        }
-        else
-        { 
-            currentState = State.Patrol;
-        }  
+        //    if (maxDistance == distanceToTarget1)
+        //    {
+        //        Safety = targetPoint0;
+        //    }
+        //    else if (maxDistance == distanceToTarget2)
+        //    {
+        //        Safety = targetPoint1;
+        //    }
+        //    else if (maxDistance == distanceToTarget3)
+        //    {
+        //        Safety = targetPoint2;
+        //    }
+        //    else if (maxDistance == distanceToTarget4)
+        //    {
+        //        Safety = targetPoint3;
+        //    }
+        //    else
+        //    {
+        //        Safety = previousSelfPos;
+        //    }
+        //    agent.SetDestination(Safety);
+        //}
+        //else
+        //{ 
+        //    currentState = State.Patrol;
+        //}  
     }
     private bool CanSeePlayer()
     {
