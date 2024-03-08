@@ -17,24 +17,34 @@ public class AI_Navigation : MonoBehaviour
     private Vector3 targetPoint1;
     private Vector3 targetPoint2;
     private Vector3 targetPoint3;
+    private Vector3 Safety;
 
     public Transform player;
     private NavMeshAgent agent;
     public AudioClip AttackSound;
-
+    private Renderer enemyRenderer;
+    private Material baseMaterial;
+    public Material PatrolMaterial;
+    public Material ChaseMaterial;
+    public Material SearchMaterial;
+    public Material AttackMaterial;
+    public Material RetreatMaterial;
     public LayerMask detectionLayer;
     public Vector3 lastPlayerPos;
-    public Vector3 previousSelfPos;
 
     public static int targetswitch = 0;
-    public float weakForceThreshold = 10f;
-    public float strongForceThreshold = 20f;
-    public float sensorRange = 15f;
-    public float meleeRange = 5f;
-    private float interactionDelay = 3f; 
-    private float elapsedTime = 0f; 
+    public int numberOfAttacks = 0;
+    public float weakForceThreshold;
+    public float strongForceThreshold;
+    public float sensorRange;
+    public float meleeRange;
+    private float interactionDelay = 1f;
+    private float giveUpSearchDelay = 3f;
+    private float elapsedTime = 0;
+   
 
     State currentState;
+
     public enum State
     {
         Patrol,
@@ -46,19 +56,21 @@ public class AI_Navigation : MonoBehaviour
     private void Start()
     {
         targetswitch = 0;
+        enemyRenderer = GetComponent<Renderer>();
         agent = GetComponent<NavMeshAgent>();
-        previousSelfPos = Self.position;
+        
+
         targetPoint0 = targetPointZero.transform.position;
         targetPoint1 = targetPointOne.transform.position;
         targetPoint2 = targetPointTwo.transform.position;
         targetPoint3 = targetpointThree.transform.position;
 
+        baseMaterial = enemyRenderer.material;
         targetPoint = targetPoint0;
     }
     private void Update()
     {
         UpdateEnemyStateMachine();
-        Debug.Log(currentState);
     }
     void UpdateEnemyStateMachine()
     {
@@ -83,6 +95,7 @@ public class AI_Navigation : MonoBehaviour
     }
     void PatrolState()
     {
+        enemyRenderer.material = PatrolMaterial;
         // Change Enemy Material Color to Patrol Color
         Debug.Log("Entering Patrol State");
         Debug.Log("targetswitch is " + targetswitch);
@@ -114,9 +127,10 @@ public class AI_Navigation : MonoBehaviour
                     break;
             }
         }
-    } // improved.
+    } 
     void ChaseState()
     {
+        enemyRenderer.material = ChaseMaterial;
         Debug.Log("Entering Chase State");
         // Change Enemy Material Color to Chase Color
         if (CanSeePlayer())
@@ -126,7 +140,6 @@ public class AI_Navigation : MonoBehaviour
             {
                 currentState = State.Attack; 
             }
-            previousSelfPos = Self.position;
         }
         else
         {
@@ -135,98 +148,73 @@ public class AI_Navigation : MonoBehaviour
     }
     void SearchState()
     {
+        enemyRenderer.material = SearchMaterial;
         // Change Enemy Material Color to Search Color
         Debug.Log("Entering Search State");
-        agent.SetDestination(previousSelfPos);
-        
-        if (Vector3.Distance(Self.position, previousSelfPos) < 1.5f) // FIX
+        agent.SetDestination(lastPlayerPos);
+        if (!CanSeePlayer())
         {
-            if (CanSeePlayer())
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= giveUpSearchDelay)
             {
-                currentState = State.Chase;
+                DetermineSafety();
+                currentState = State.Retreat;
+                elapsedTime = 0;
+                return;
             }
         }
-        else if (Vector3.Distance(Self.position, lastPlayerPos) < 1.5f)
-        {
-            agent.SetDestination(lastPlayerPos);
-            if (!CanSeePlayer() || (Vector3.Distance(Self.position, lastPlayerPos) < 1.5f))
-            {
-                currentState = State.Patrol;
-            }
-            else if (CanSeePlayer())
-            {
-                currentState = State.Chase;
-            }
-        }
-        if (CanSeePlayer())
+        else if (CanSeePlayer())
         {
             currentState = State.Chase;
+
         }
     }
     void AttackState()
     {
+        enemyRenderer.material = AttackMaterial;
         Debug.Log("Entering Attack State");
         // Change Enemy Material Color to Attack Color
-        int numberOfAttacks = 0;
-
+       
         if (inRangeOfPlayer())
         {
             elapsedTime += Time.deltaTime;
 
-            if (elapsedTime >= interactionDelay && AttackSound != null)            
+            if (elapsedTime >= interactionDelay && AttackSound != null)
             {
                 AudioSource.PlayClipAtPoint(AttackSound, transform.position);
                 elapsedTime = 0;
                 numberOfAttacks++;
             }
         }
+        else 
+        { 
+            currentState = State.Chase; 
+        }
         if (numberOfAttacks >= 3)
         {
+            numberOfAttacks = 0;
             currentState = State.Retreat;
+            DetermineSafety();
         }
     }
     void RetreatState()
     {
-        //currentState = State.Patrol;
+        enemyRenderer.material = RetreatMaterial;
         Debug.Log("Entering Retreat State");
         //// Change Enemy Material Color to Retreat Color
-        if (CanSeePlayer())
+
+        agent.SetDestination(Safety);
+        if (Vector3.Distance(Self.position, Safety) <= 1.5f)
         {
-            float distanceToTarget1 = Vector3.Distance(player.position, targetPoint0);
-            float distanceToTarget2 = Vector3.Distance(player.position, targetPoint1);
-            float distanceToTarget3 = Vector3.Distance(player.position, targetPoint2);
-            float distanceToTarget4 = Vector3.Distance(player.position, targetPoint3);
-
-            float maxDistance = Mathf.Max(distanceToTarget1, distanceToTarget2, distanceToTarget3, distanceToTarget4);
-
-            Vector3 Safety;
-
-            if (maxDistance == distanceToTarget1)
+            if (CanSeePlayer())
             {
-                Safety = targetPoint0;
-            }
-            else if (maxDistance == distanceToTarget2)
-            {
-                Safety = targetPoint1;
-            }
-            else if (maxDistance == distanceToTarget3)
-            {
-                Safety = targetPoint2;
-            }
-            else if (maxDistance == distanceToTarget4)
-            {
-                Safety = targetPoint3;
+                currentState = State.Chase;
             }
             else
             {
-                Safety = previousSelfPos;
+                currentState = State.Patrol;
             }
-            agent.SetDestination(Safety);
-        }
-        else
-        {
-            currentState = State.Patrol;
-        }
+        } 
     }
     private bool CanSeePlayer()
     {
@@ -258,28 +246,60 @@ public class AI_Navigation : MonoBehaviour
         }
         return false;
     }
+    void DetermineSafety()
+    {
+        float distanceToTarget1 = Vector3.Distance(player.position, targetPoint0);
+        float distanceToTarget2 = Vector3.Distance(player.position, targetPoint1);
+        float distanceToTarget3 = Vector3.Distance(player.position, targetPoint2);
+        float distanceToTarget4 = Vector3.Distance(player.position, targetPoint3);
+
+        float maxDistance = Mathf.Max(distanceToTarget1, distanceToTarget2, distanceToTarget3, distanceToTarget4);
+        if (maxDistance == distanceToTarget1)
+        {
+            Safety = targetPoint0;
+            Debug.Log("Retreat 1");
+        }
+        else if (maxDistance == distanceToTarget2)
+        {
+            Safety = targetPoint1;
+            Debug.Log("Retreat 2");
+        }
+        else if (maxDistance == distanceToTarget3)
+        {
+            Safety = targetPoint2;
+            Debug.Log("Retreat 3");
+        }
+        else if (maxDistance == distanceToTarget4)
+        {
+            Safety = targetPoint3;
+            Debug.Log("Retreat 4");
+        }
+        else
+        {
+            Safety = targetPoint;
+            currentState = State.Chase;
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Vector3 relativeVelocity = collision.relativeVelocity;
+            float forceMagnitude = collision.relativeVelocity.magnitude;
 
-            float forceMagnitude = relativeVelocity.magnitude;
-
+            //Debug.Log("Force is " + forceMagnitude);
             if (forceMagnitude < weakForceThreshold)
             {
                 Debug.Log("Weak impact!");
-                // Perform actions for weak impact
             }
             else if (forceMagnitude >= weakForceThreshold && forceMagnitude < strongForceThreshold)
             {
                 Debug.Log("Medium impact!");
-                // Perform actions for medium impact
             }
             else
             {
                 Debug.Log("Strong impact!");
                 currentState = State.Retreat;
+                DetermineSafety();
             }
         }
     }
