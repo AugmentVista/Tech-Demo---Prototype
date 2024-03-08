@@ -8,11 +8,10 @@ public class BoostPowerUp : MonoBehaviour
     public float jumpBoostAmount = 5f; 
     public float duration = 30f; 
     public float rotationSpeed = 30f;
-    public static bool boostActive = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !boostActive)
+        if (other.CompareTag("Player"))
         {
             CollectItem(other.GetComponent<FirstPersonController>());
             gameObject.SetActive(false); 
@@ -26,7 +25,6 @@ public class BoostPowerUp : MonoBehaviour
     }
     private void CollectItem(FirstPersonController playerController)
     {
-        boostActive = true;
         playerController.ApplySpeedBoost(speedBoostAmount);
 
         playerController.ApplyJumpBoost(jumpBoostAmount);
@@ -35,7 +33,6 @@ public class BoostPowerUp : MonoBehaviour
     }
     private void RemoveBoosts()
     {
-        boostActive = false;
         var playerController = FindObjectOfType<FirstPersonController>();
         if (playerController != null)
         {
