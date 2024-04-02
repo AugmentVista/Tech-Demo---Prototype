@@ -1,8 +1,11 @@
-﻿
-add pause
+﻿In place of a health system that uses damage and healing this game will function closer to SUPERHOT 
+in that velocity and "Ammo" are your health. The player should always be moving, at least a little bit.
 
 
+                                          TO DO LIST:
+1. Modify the character controller script to uncap max velocity and more harshly limit acceleration.
+2. Add functionality to checkpoint script to reset the number of ability uses when the player respawns to that checkpoint.
+3. Create an invisible Navmesh both on the land and air for different enemy types. 
+4. When any enemy knocks into the player it should apply a force to the players rigidbody relative to the impact force.
+5. Experiment with whether or not a cap between intervals that the player can use their platform ability.
 
-Stretch goals.
-FIRE FIRE FIRE ROCK ROCK ROCK
-Add oncolllison enter sound between player & rock to water 

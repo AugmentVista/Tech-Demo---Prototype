@@ -128,19 +128,7 @@ public class FirstPersonController : MonoBehaviour
     #endregion
     #endregion
 
-    #region Head Bob
-
-    public bool enableHeadBob = true;
-    public Transform joint;
-    public float bobSpeed = 10f;
-    public Vector3 bobAmount = new Vector3(.15f, .05f, 0f);
-
-    // Internal Variables
-    private Vector3 jointOriginalPos;
-    private float timer = 0;
-
-    #endregion
-
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -148,7 +136,6 @@ public class FirstPersonController : MonoBehaviour
         // Set internal variables
         playerCamera.fieldOfView = fov;
         originalScale = transform.localScale;
-        jointOriginalPos = joint.localPosition;
         if (!unlimitedSprint)
         {
             sprintRemaining = sprintDuration;
@@ -333,10 +320,6 @@ public class FirstPersonController : MonoBehaviour
         }
         #endregion
         CheckGround();
-        if(enableHeadBob)
-        {
-            HeadBob();
-        }
     }
 
     void FixedUpdate()
@@ -349,7 +332,6 @@ public class FirstPersonController : MonoBehaviour
             Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
             // Checks if player is walking and isGrounded
-            // Will allow head bob
             if (targetVelocity.x != 0 || targetVelocity.z != 0 && isGrounded)
             {
                 isWalking = true;
@@ -358,8 +340,7 @@ public class FirstPersonController : MonoBehaviour
             {
                 isWalking = false;
             }
-
-            // All movement calculations shile sprint is active
+            // All movement calculations while sprint is active
             if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
             {
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
@@ -371,7 +352,7 @@ public class FirstPersonController : MonoBehaviour
                 velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
                 velocityChange.y = 0;
 
-                // Player is only moving when valocity change != 0
+                // Player is only moving when velocity change != 0
                 // Makes sure fov change only happens during movement
                 if (velocityChange.x != 0 || velocityChange.z != 0)
                 {
@@ -387,7 +368,6 @@ public class FirstPersonController : MonoBehaviour
                         sprintBarCG.alpha += 5 * Time.deltaTime;
                     }
                 }
-
                 rb.AddForce(velocityChange, ForceMode.VelocityChange);
             }
             // All movement calculations while walking
@@ -416,7 +396,7 @@ public class FirstPersonController : MonoBehaviour
         #endregion
     }
 
-    // Sets isGrounded based on a raycast sent straigth down from the player object
+    // Sets isGrounded based on a raycast sent straight down from the player object
     private void CheckGround()
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
@@ -469,36 +449,6 @@ public class FirstPersonController : MonoBehaviour
             walkSpeed *= speedReduction;
 
             isCrouched = true;
-        }
-    }
-
-    private void HeadBob()
-    {
-        if(isWalking)
-        {
-            // Calculates HeadBob speed during sprint
-            if(isSprinting)
-            {
-                timer += Time.deltaTime * (bobSpeed + sprintSpeed);
-            }
-            // Calculates HeadBob speed during crouched movement
-            else if (isCrouched)
-            {
-                timer += Time.deltaTime * (bobSpeed * speedReduction);
-            }
-            // Calculates HeadBob speed during walking
-            else
-            {
-                timer += Time.deltaTime * bobSpeed;
-            }
-            // Applies HeadBob movement
-            joint.localPosition = new Vector3(jointOriginalPos.x + Mathf.Sin(timer) * bobAmount.x, jointOriginalPos.y + Mathf.Sin(timer) * bobAmount.y, jointOriginalPos.z + Mathf.Sin(timer) * bobAmount.z);
-        }
-        else
-        {
-            // Resets when play stops moving
-            timer = 0;
-            joint.localPosition = new Vector3(Mathf.Lerp(joint.localPosition.x, jointOriginalPos.x, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.y, jointOriginalPos.y, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.z, jointOriginalPos.z, Time.deltaTime * bobSpeed));
         }
     }
 }
