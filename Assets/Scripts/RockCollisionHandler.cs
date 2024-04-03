@@ -15,7 +15,6 @@ public class RockCollisionHandler : MonoBehaviour
 
             if (elapsedTime >= interactionDelay)
             {
-                // Enable gravity after the delay
                 Rigidbody rockRigidbody = GetComponent<Rigidbody>();
                 rockRigidbody.isKinematic = false;
                 rockRigidbody.useGravity = true;

@@ -11,7 +11,6 @@ public class MovingPlatform : MonoBehaviour
     public float movementSpeed;
     public bool EndPointReached;
     public GameObject Ship;
-
     private Transform player;
     private Vector3 targetPoint;
 
@@ -22,7 +21,6 @@ public class MovingPlatform : MonoBehaviour
         targetPoint = endPoint;
         EndPointReached = false;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -32,7 +30,6 @@ public class MovingPlatform : MonoBehaviour
             Debug.Log("Player has been parented to Ship");
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -41,13 +38,12 @@ public class MovingPlatform : MonoBehaviour
             Debug.Log("Player has been UNparented to Ship");
         }
     }
-
     private void ShipGO()
     {
         if (!EndPointReached)
         {
             Ship.transform.position = Vector3.Lerp(Ship.transform.position, targetPoint, movementSpeed * Time.deltaTime);
-            if (Vector3.Distance(Ship.transform.position, targetPoint) <= 0.1f)
+            if (Vector3.Distance(Ship.transform.position, targetPoint) <= 2.0f)
             {
                 EndPointReached = true;
             }
@@ -61,10 +57,8 @@ public class MovingPlatform : MonoBehaviour
                 targetPoint = endPoint;
                 EndPointReached = false;
             }
-            //Debug.Log(EndPointReached);
         }
     }
-
     private void FixedUpdate()
     {
         ShipGO();
@@ -79,8 +73,3 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 }
-
-
-
-
-

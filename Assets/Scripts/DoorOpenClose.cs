@@ -5,7 +5,6 @@ using UnityEngine;
 public class DoorOpenClose : MonoBehaviour
 {
     public GameObject door;
-
     public Vector3 closedRotation = new Vector3(0f, 310f, 0f);
     public float openRotation;
 
