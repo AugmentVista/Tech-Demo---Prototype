@@ -9,10 +9,16 @@ public class CheckPoints : MonoBehaviour // This one goes on the Player
     public GameObject checkpoint2;
     public GameObject checkpoint3;
 
-    public KillBox killBox;
+    private KillBox killBox;
     [HideInInspector]
     public Vector3 checkpoint;
     private Vector3 tempCheckPoint;
+
+    private void Start()
+    {
+        killBox = GetComponent<KillBox>();
+      checkpoint = StartPosition.transform.position;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
