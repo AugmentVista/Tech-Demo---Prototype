@@ -11,12 +11,16 @@ public class AI_Navigation : MonoBehaviour
     public GameObject targetPointOne;
     public GameObject targetPointTwo;
     public GameObject targetpointThree;
+    public GameObject targetpointFour;
+    public FirstPersonController Player;
+    public int EnemyPower;
 
     private Vector3 targetPoint;
     private Vector3 targetPoint0;
     private Vector3 targetPoint1;
     private Vector3 targetPoint2;
     private Vector3 targetPoint3;
+    private Vector3 targetPoint4;
     private Vector3 Safety;
 
     public Transform player;
@@ -38,8 +42,8 @@ public class AI_Navigation : MonoBehaviour
     public float strongForceThreshold;
     public float sensorRange;
     public float meleeRange;
-    private float interactionDelay = 1f;
-    private float giveUpSearchDelay = 3f;
+    private float interactionDelay = .2f;
+    private float giveUpSearchDelay = 8f;
     private float elapsedTime = 0;
    
 
@@ -64,6 +68,7 @@ public class AI_Navigation : MonoBehaviour
         targetPoint1 = targetPointOne.transform.position;
         targetPoint2 = targetPointTwo.transform.position;
         targetPoint3 = targetpointThree.transform.position;
+        targetPoint4 = targetpointFour.transform.position;
 
         baseMaterial = enemyRenderer.material;
         targetPoint = targetPoint0;
@@ -105,7 +110,7 @@ public class AI_Navigation : MonoBehaviour
         if (CanSeePlayer())
             currentState = State.Chase;
 
-        if (Vector3.Distance(Self.position, targetPoint) <= 1.5f)
+        if (Vector3.Distance(Self.position, targetPoint) <= 5.0f)
         {
             switch (targetswitch)
             {
@@ -122,6 +127,10 @@ public class AI_Navigation : MonoBehaviour
                     targetswitch++;
                     break;
                 case 3:
+                    targetPoint = targetPoint4;
+                    targetswitch++;
+                    break;
+                case 4:
                     targetPoint = targetPoint0;
                     targetswitch = 0;
                     break;
@@ -182,6 +191,7 @@ public class AI_Navigation : MonoBehaviour
             if (elapsedTime >= interactionDelay && AttackSound != null)
             {
                 AudioSource.PlayClipAtPoint(AttackSound, transform.position);
+                Player.rb.AddForce(Vector3.forward * EnemyPower, ForceMode.Impulse);
                 elapsedTime = 0;
                 numberOfAttacks++;
             }
@@ -248,25 +258,31 @@ public class AI_Navigation : MonoBehaviour
     }
     void DetermineSafety()
     {
-        float distanceToTarget1 = Vector3.Distance(player.position, targetPoint0);
-        float distanceToTarget2 = Vector3.Distance(player.position, targetPoint1);
-        float distanceToTarget3 = Vector3.Distance(player.position, targetPoint2);
-        float distanceToTarget4 = Vector3.Distance(player.position, targetPoint3);
+        float distanceToTarget0 = Vector3.Distance(player.position, targetPoint0);
+        float distanceToTarget1 = Vector3.Distance(player.position, targetPoint1);
+        float distanceToTarget2 = Vector3.Distance(player.position, targetPoint2);
+        float distanceToTarget3 = Vector3.Distance(player.position, targetPoint3);
+        float distanceToTarget4 = Vector3.Distance(player.position, targetPoint4);
 
-        float maxDistance = Mathf.Max(distanceToTarget1, distanceToTarget2, distanceToTarget3, distanceToTarget4);
-        if (maxDistance == distanceToTarget1)
+        float maxDistance = Mathf.Max(distanceToTarget0, distanceToTarget1, distanceToTarget2, distanceToTarget3, distanceToTarget4);
+        if (maxDistance == distanceToTarget0)
         {
             Safety = targetPoint0;
+            Debug.Log("Retreat 0");
+        }
+        else if (maxDistance == distanceToTarget1)
+        {
+            Safety = targetPoint1;
             Debug.Log("Retreat 1");
         }
         else if (maxDistance == distanceToTarget2)
         {
-            Safety = targetPoint1;
+            Safety = targetPoint2;
             Debug.Log("Retreat 2");
         }
         else if (maxDistance == distanceToTarget3)
         {
-            Safety = targetPoint2;
+            Safety = targetPoint3;
             Debug.Log("Retreat 3");
         }
         else if (maxDistance == distanceToTarget4)

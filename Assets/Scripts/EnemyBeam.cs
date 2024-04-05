@@ -15,13 +15,17 @@ public class EnemyBeam : MonoBehaviour
             Debug.LogError("PlayerController not found!");
         }
     }
+    private IEnumerator StartSlow()
+    {
+        yield return new WaitForSeconds(0.3f);
+        playerController.rb.velocity = Vector3.zero;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if playerController is assigned
         if (playerController == null)
         {
-            return; // Exit early if playerController is not assigned
+            return;
         }
         if (other.CompareTag("Player"))
         {
@@ -29,13 +33,17 @@ public class EnemyBeam : MonoBehaviour
             Debug.Log("Beans");
         }
     }
+    
+
     private void Slow()
     {
+        StartCoroutine(StartSlow());
+        playerController.rb.useGravity = false;
         playerController.sprintSpeed -= slowedSpeed;
         playerController.walkSpeed -= slowedSpeed;
         if (playerController.sprintSpeed <= 2)
-        { 
-        playerController.sprintSpeed = 2;
+        {
+            playerController.sprintSpeed = 2;
         }
         if (playerController.walkSpeed <= 2)
         {
@@ -44,6 +52,7 @@ public class EnemyBeam : MonoBehaviour
     }
     private void ResetSpeed()
     {
+        playerController.rb.useGravity = true;
         playerController.sprintSpeed += slowedSpeed;
         playerController.walkSpeed += slowedSpeed;
         if (playerController.sprintSpeed <= 2)
@@ -58,10 +67,9 @@ public class EnemyBeam : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // Check if playerController is assigned
         if (playerController == null)
         {
-            return; // Exit early if playerController is not assigned
+            return;
         }
         if (other.CompareTag("Player"))
         {
