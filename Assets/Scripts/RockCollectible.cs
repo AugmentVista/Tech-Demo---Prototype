@@ -8,6 +8,7 @@ public class RockCollectible : MonoBehaviour
     private FloatingPlatformsAbility floatingPlatformsAbility;
     [SerializeField]
     private int rocksToAdd;
+    public AudioClip Pickup;
 
     public TextMeshProUGUI RockCountText;
 
@@ -19,6 +20,7 @@ public class RockCollectible : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             CollectItem();
+            AudioSource.PlayClipAtPoint(Pickup, transform.position);
         }
     }
     private void Update()

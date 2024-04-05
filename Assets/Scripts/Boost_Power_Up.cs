@@ -8,12 +8,13 @@ public class BoostPowerUp : MonoBehaviour
     public float jumpBoostAmount; 
     public float duration; 
     public float rotationSpeed;
-
+    public AudioClip Pickup;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             CollectItem(other.GetComponent<FirstPersonController>());
+            AudioSource.PlayClipAtPoint(Pickup, transform.position);
             gameObject.SetActive(false); 
         }
     }

@@ -26,8 +26,8 @@ public class AI_Navigation : MonoBehaviour
     public Transform player;
     private NavMeshAgent agent;
     public AudioClip AttackSound;
-    private Renderer enemyRenderer;
-    private Material baseMaterial;
+    public Renderer enemyRenderer;
+    public Material baseMaterial;
     public Material PatrolMaterial;
     public Material ChaseMaterial;
     public Material SearchMaterial;
@@ -42,7 +42,7 @@ public class AI_Navigation : MonoBehaviour
     public float strongForceThreshold;
     public float sensorRange;
     public float meleeRange;
-    private float interactionDelay = .2f;
+    private float interactionDelay = 2f;
     private float giveUpSearchDelay = 8f;
     private float elapsedTime = 0;
    
@@ -102,8 +102,6 @@ public class AI_Navigation : MonoBehaviour
     {
         enemyRenderer.material = PatrolMaterial;
         // Change Enemy Material Color to Patrol Color
-        Debug.Log("Entering Patrol State");
-        Debug.Log("targetswitch is " + targetswitch);
 
         agent.SetDestination(targetPoint);
 
@@ -140,7 +138,6 @@ public class AI_Navigation : MonoBehaviour
     void ChaseState()
     {
         enemyRenderer.material = ChaseMaterial;
-        Debug.Log("Entering Chase State");
         // Change Enemy Material Color to Chase Color
         if (CanSeePlayer())
         {
@@ -159,7 +156,6 @@ public class AI_Navigation : MonoBehaviour
     {
         enemyRenderer.material = SearchMaterial;
         // Change Enemy Material Color to Search Color
-        Debug.Log("Entering Search State");
         agent.SetDestination(lastPlayerPos);
         if (!CanSeePlayer())
         {
@@ -181,7 +177,6 @@ public class AI_Navigation : MonoBehaviour
     void AttackState()
     {
         enemyRenderer.material = AttackMaterial;
-        Debug.Log("Entering Attack State");
         // Change Enemy Material Color to Attack Color
        
         if (inRangeOfPlayer())
@@ -210,7 +205,6 @@ public class AI_Navigation : MonoBehaviour
     void RetreatState()
     {
         enemyRenderer.material = RetreatMaterial;
-        Debug.Log("Entering Retreat State");
         //// Change Enemy Material Color to Retreat Color
 
         agent.SetDestination(Safety);

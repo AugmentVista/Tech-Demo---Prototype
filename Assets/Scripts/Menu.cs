@@ -11,7 +11,6 @@ public class Menu : MonoBehaviour
     private GameObject abilityReminder;
     private GameObject endScreen;
     public GameObject EndSkull;
-    private bool GameOver = false;
     private bool MenuIsOpen = false;
     private bool MenuActive = false;
 

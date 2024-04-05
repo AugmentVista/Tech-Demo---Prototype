@@ -81,7 +81,7 @@ public class FirstPersonController : MonoBehaviour
     public float sprintSpeed = 7f;
     public float sprintDuration = 5f;
     public float sprintCooldown = .5f;
-    public float sprintFOV = 80f;
+    float sprintFOV;
     public float sprintFOVStepTime = 10f;
 
     // Sprint Bar
@@ -392,7 +392,8 @@ public class FirstPersonController : MonoBehaviour
                 rb.AddForce(velocityChange, ForceMode.VelocityChange);
             }
         }
-
+        float speed = rb.velocity.magnitude;
+        sprintFOV = fov + (10 + speed /2);
         #endregion
     }
 
