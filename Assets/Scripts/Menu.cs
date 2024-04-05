@@ -7,11 +7,13 @@ public class Menu : MonoBehaviour
 {
     public FirstPersonController firstPersonController;
     private bool isPaused = false;
-    private GameObject pauseButton;
     private GameObject resumeButton;
+    private GameObject abilityReminder;
+    private GameObject endScreen;
+    public GameObject EndSkull;
+    private bool GameOver = false;
     private bool MenuIsOpen = false;
-    float menuOpenDuration = 1.0f;
-    float timeElapsed = 0.0f;
+    private bool MenuActive = false;
 
     void Start()
     {
@@ -19,10 +21,13 @@ public class Menu : MonoBehaviour
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas != null)
         {
-            pauseButton = canvas.transform.Find("Pause Button").gameObject;
             resumeButton = canvas.transform.Find("Resume Button").gameObject;
-            pauseButton.SetActive(false);
+            abilityReminder = canvas.transform.Find("Jump Reminder Border").gameObject;
+            endScreen = canvas.transform.Find("GameOver").gameObject;
+
+            abilityReminder.SetActive(false);
             resumeButton.SetActive(false);
+            endScreen.SetActive(false);
         }
     }
     public void OnPauseButtonClick()
@@ -38,60 +43,52 @@ public class Menu : MonoBehaviour
     }
     public void OnResumeButtonClick()
     {
-        if (isPaused)
-        {
-            isPaused = false;
-        }
-        if (!isPaused)
-        {
-            Time.timeScale = 1.0f;
-        }
-        MenuIsOpen = false;
-    }
-    void MenuTimeSlow()
+    if (isPaused)
     {
-        if (MenuIsOpen && !isPaused)
-        {
-            timeElapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(timeElapsed / menuOpenDuration);
-            Time.timeScale = Mathf.Lerp(1.0f, 0.001f, t);
-        }
-        if (!MenuIsOpen)
-        { 
-            Time.timeScale = 1.0f;
-            timeElapsed = 0.0f;
-        }
+        isPaused = false;
     }
+    if (!isPaused)
+    {
+        Time.timeScale = 1.0f;
+    }
+    MenuIsOpen = false;
+    }
+
     void Update()
     {
-        MenuTimeSlow();
+        if (!EndSkull.activeSelf)
+        { 
+        endScreen.SetActive(true);
+        MenuIsOpen = true;
+        resumeButton.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (MenuIsOpen)
-            {
-                MenuIsOpen = false;
-            }
-            else
+
+            MenuIsOpen = true;
+            if (MenuIsOpen && Input.GetKeyDown(KeyCode.Escape) && MenuActive)
             { 
-                MenuIsOpen = true;
+            MenuIsOpen = false;
             }
-            Debug.Log("Menu is" + MenuIsOpen);
         }
         if (MenuIsOpen)
         {
             firstPersonController.cameraCanMove = false;
-            Debug.Log("Menu is open");
-            pauseButton.SetActive(true);
             resumeButton.SetActive(true);
+            abilityReminder.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
-
+            MenuActive = true;
+            Time.timeScale = 0.0f;
         }
         else if (!MenuIsOpen)
         {
+            Time.timeScale = 1.0f;
             firstPersonController.cameraCanMove = true;
-            pauseButton.SetActive(false);
-            resumeButton.SetActive(false);
+            resumeButton.SetActive(false);  
+            abilityReminder.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
+            MenuActive = false;
         }
     }
 }

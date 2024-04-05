@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class FirstPersonController : MonoBehaviour
 {
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     #region Camera Movement Variables
 
@@ -57,7 +57,7 @@ public class FirstPersonController : MonoBehaviour
     #region Boosts
     public void ApplySpeedBoost(float boostAmount)
     {
-        walkSpeed += boostAmount;
+        sprintSpeed += boostAmount;
     }
     public void ApplyJumpBoost(float boostAmount)
     {
@@ -65,7 +65,7 @@ public class FirstPersonController : MonoBehaviour
     }
     public void RemoveSpeedBoost(float boostAmount)
     {
-        walkSpeed -= boostAmount;
+        sprintSpeed -= boostAmount;
     }
     public void RemoveJumpBoost(float boostAmount)
     {

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BoostPowerUp : MonoBehaviour
 {
-    public float speedBoostAmount = 2f; 
-    public float jumpBoostAmount = 5f; 
-    public float duration = 30f; 
-    public float rotationSpeed = 30f;
+    public float speedBoostAmount; 
+    public float jumpBoostAmount; 
+    public float duration; 
+    public float rotationSpeed;
 
     private void OnTriggerEnter(Collider other)
     {
