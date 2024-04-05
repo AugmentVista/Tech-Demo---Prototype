@@ -43,7 +43,7 @@ public class MovingPlatform : MonoBehaviour
         if (!EndPointReached)
         {
             Ship.transform.position = Vector3.Lerp(Ship.transform.position, targetPoint, movementSpeed * Time.deltaTime);
-            if (Vector3.Distance(Ship.transform.position, targetPoint) <= 2.0f)
+            if (Vector3.Distance(Ship.transform.position, targetPoint) <= 4.0f)
             {
                 EndPointReached = true;
             }
@@ -52,7 +52,7 @@ public class MovingPlatform : MonoBehaviour
         {
             targetPoint = startPoint;
             Ship.transform.position = Vector3.Lerp(Ship.transform.position, targetPoint, movementSpeed * Time.deltaTime);
-            if (Vector3.Distance(Ship.transform.position, targetPoint) <= 0.1f)
+            if (Vector3.Distance(Ship.transform.position, targetPoint) <= 4.0f)
             {
                 targetPoint = endPoint;
                 EndPointReached = false;
